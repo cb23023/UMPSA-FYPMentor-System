@@ -122,6 +122,9 @@
                           </td>
                           <td class="py-3 px-4">
                             <div class="d-flex gap-2">
+                              <a href="{{ route('timeframes.edit', $tf->timeFrameID) }}" class="btn btn-sm btn-outline-primary" title="Edit">
+                                <i class="bi bi-pencil-square"></i>
+                              </a>
                               @if(!$tf->is_active)
                               <form method="POST" action="{{ route('setActiveTimeFrame', $tf->timeFrameID) }}">
                                 @csrf

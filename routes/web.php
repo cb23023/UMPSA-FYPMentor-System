@@ -44,6 +44,8 @@ Route::middleware(['auth', 'role:fypcoordinator'])->group(function () {
     // Time Frame (TimeFrameController)
     Route::get('/manageTimeFrame',        [TimeFrameController::class, 'manageTimeFrame'])->name('manageTimeFrame');
     Route::post('/saveTimeFrame',         [TimeFrameController::class, 'saveTimeFrame'])->name('saveTimeFrame');
+    Route::get('/coordinator/timeframes/{id}/edit', [TimeFrameController::class, 'edit'])->name('timeframes.edit');
+    Route::put('/coordinator/timeframes/{id}', [TimeFrameController::class, 'update'])->name('timeframes.update');
     Route::post('/setActiveTimeFrame/{id}', [TimeFrameController::class, 'setActive'])->name('setActiveTimeFrame');
     Route::post('/deleteTimeFrame/{id}',  [TimeFrameController::class, 'deleteTimeFrame'])->name('deleteTimeFrame');
 
