@@ -82,6 +82,50 @@ class AppointmentController extends Controller
         return view('student.appointmentRequest', compact('appointments'));
     }
 
+    // STUDENT: Show edit form for a pending appointment
+    public function edit($id)
+    {
+        $appointment = AppointmentRecord::findOrFail($id);
+
+        if ($appointment->status !== 'Pending') {
+            return back()->withErrors('Only pending appointments can be edited.');
+        }
+
+        $lecturer = LecturerRecord::find($appointment->lecturerID);
+
+        return view('student.editAppointment', compact('appointment', 'lecturer'));
+    }
+
+    // STUDENT: Update a pending appointment
+    public function update(Request $request, $id)
+    {
+        $appointment = AppointmentRecord::findOrFail($id);
+
+        if ($appointment->status !== 'Pending') {
+            return back()->withErrors('Only pending appointments can be updated.');
+        }
+
+        $request->validate([
+            'title'        => 'required|string|max:255',
+            'description'  => 'nullable|string',
+            'date'         => 'required|date|after_or_equal:today',
+            'time'         => 'required|date_format:H:i',
+            'meeting_type' => 'required|in:physical,online',
+            'meeting_link' => 'nullable|url',
+        ]);
+
+        $appointment->update([
+            'title'        => $request->title,
+            'description'  => $request->description,
+            'date'         => $request->date,
+            'time'         => $request->time,
+            'meeting_type' => $request->meeting_type,
+            'meeting_link' => $request->meeting_link,
+        ]);
+
+        return redirect()->route('appointmentRequest')->with('success', 'Appointment details updated successfully.');
+    }
+
     // STUDENT: Cancel a pending appointment
     public function cancelAppointment($id)
     {
