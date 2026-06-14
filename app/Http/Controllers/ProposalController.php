@@ -186,7 +186,7 @@ class ProposalController extends Controller
         $student = StudentRecord::where('user_id', Auth::id())->first();
 
         $hasPendingRequest = TopicApplication::where('studentID', $student->studentID)
-            ->where('status', 'Pending')
+            ->whereIn('status', ['Pending', 'Approved'])
             ->exists();
 
         return view('student.applyTopic', compact('lecturer', 'topic', 'hasPendingRequest'));
@@ -198,11 +198,11 @@ class ProposalController extends Controller
         $student = StudentRecord::where('user_id', Auth::id())->first();
 
         $existing = TopicApplication::where('studentID', $student->studentID)
-            ->where('status', 'Pending')
+            ->whereIn('status', ['Pending', 'Approved'])
             ->first();
 
         if ($existing) {
-            return redirect()->back()->withErrors('You already have a pending topic request.');
+            return redirect()->back()->withErrors('You already have a pending or approved topic request.');
         }
 
         if ($request->topic === 'others') {
