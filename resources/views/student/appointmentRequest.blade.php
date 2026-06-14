@@ -39,7 +39,7 @@
                 <tbody>
                   @foreach ($appointments as $appointment)
                     <tr style="border-bottom: 1px solid #eee;">
-                      <td class="py-3 px-4" style="color: #444; font-size: 1.05rem;">{{ $appointment->lecturer_name }}</td>
+                      <td class="py-3 px-4" style="color: #444; font-size: 1.05rem;">{{ $appointment->lecturer->name ?? 'Unknown' }}</td>
                       <td class="py-3 px-4" style="color: #444; font-size: 1.05rem;">{{ $appointment->date }}</td>
                       <td class="py-3 px-4" style="color: #444; font-size: 1.05rem;">{{ $appointment->time }}</td>
                       <td class="py-3 px-4">
@@ -53,10 +53,15 @@
                       </td>
                       <td class="py-3 px-4">
                         @if($appointment->status == 'Pending')
+                          <a href="{{ route('editAppointment', $appointment->id) }}"
+                             class="btn btn-outline-primary me-1"
+                             style="padding: 0.5rem 1rem; font-weight: 500;">
+                            Edit
+                          </a>
                           <form action="{{ url('cancelAppointment', $appointment->id) }}" method="POST" class="d-inline">
                             @csrf
-                            <button class="btn btn-outline-danger" 
-                                    type="submit" 
+                            <button class="btn btn-outline-danger"
+                                    type="submit"
                                     onclick="return confirm('Are you sure you want to cancel?')"
                                     style="padding: 0.5rem 1rem; font-weight: 500;"
                                     onmouseover="this.style.color='white'"

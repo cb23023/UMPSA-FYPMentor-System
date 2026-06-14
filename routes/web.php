@@ -90,6 +90,8 @@ Route::middleware(['auth', 'role:student'])->group(function () {
     Route::post('/applyForm',                    [AppointmentController::class, 'applyForm'])->name('applyForm');
     Route::get('/appointmentRequest',            [AppointmentController::class, 'appointmentRequest'])->name('appointmentRequest');
     Route::post('/cancelAppointment/{id}',       [AppointmentController::class, 'cancelAppointment'])->name('cancelAppointment');
+    Route::get('/editAppointment/{id}',          [AppointmentController::class, 'edit'])->name('editAppointment');
+    Route::put('/updateAppointment/{id}',        [AppointmentController::class, 'update'])->name('updateAppointment');
 });
 
 // ─── NOTIFICATIONS (all authenticated users) ────────────────────────────────
