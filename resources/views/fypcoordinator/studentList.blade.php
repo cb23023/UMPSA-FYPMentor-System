@@ -76,11 +76,11 @@
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <h2 class="h3 mb-0" style="color: #2c3e50; font-weight: 600;">Student List</h2>
                     <div class="d-flex gap-2">
-                        <a class="btn btn-primary px-4 py-2 m-1" href="{{'uploadUser'}}" style="background-color: #1468b0; border: none; font-weight: 500;">
+                        <a class="btn btn-primary px-4 py-2 m-1" href="{{ route('uploadUser') }}" style="background-color: #1468b0; border: none; font-weight: 500;">
                             <i class="bi bi-upload me-2"></i>Upload
                         </a>
                         
-                        <a class="btn btn-success px-4 py-2 m-1" href="{{'fypReport'}}" style="background-color: #10b981; border: none; font-weight: 500;">
+                        <a class="btn btn-success px-4 py-2 m-1" href="{{ route('fypReport') }}" style="background-color: #10b981; border: none; font-weight: 500;">
                             <i class="bi bi-file-pdf me-2"></i>Generate PDF
                         </a>
                     </div>
